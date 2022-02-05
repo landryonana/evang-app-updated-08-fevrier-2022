@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations
+{% endblock titre %}
+
+{% block hamburger %}
+<div class="menu-btn">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</div>
+{% endblock hamburger %}
+
+{% block sidebar %}
+{% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="wrapper-head-liste">
+    <div class="head-liste">
+        <h2>Liste des {{type_opera}}</h2>
+        <h4>Évangelisations</h4>
+    </div>
+</div>
+<div class="wrapper-liste">
+    <div class="row">
+        <div class="col-md-2">
+            {% include 'partials/operation-side-bar-link.html' %}
+        </div>
+        <div class="col-md-10">
+            {% if messages %}
+                {% include 'partials/messages_request.html' %}
+            {% endif %}
+            {% if has_error %}
+                <ul class="form_erros">
+                    {{ errors }}
+                </ul>
+            {% endif %}
+                
+            <div class="liste">
+                {% if type_opera == "personnes" %}
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 col-lg-3 col-sm-6">
+                            <div class="wrapper-evang-infos">
+                                <div class="deja">
+                                    <h2><i class="fa fa-user"></i> {{pers_deja|length}}</h2>
+                                    <p>Déjà à JÉSUS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-lg-3 col-sm-6" >
+                            <div class="wrapper-evang-infos">
+                                <div class="oui">
+                                    <h2><i class="fa fa-user"></i> {{pers_oui|length}}</h2>
+                                    <p>Oui à JÉSUS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-lg-3 col-sm-6" >
+                            <div class="wrapper-evang-infos">
+                                <div class="non">
+                                    <h2><i class="fa fa-user-slash"></i> {{pers_non|length}}</h2>
+                                    <p>Non à JÉSUS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-lg-3 col-sm-6">
+                            <div class="wrapper-evang-infos">
+                                <div class="indecis">
+                                    <h2><i class="fa fa-user-slash"></i> {{pers_ras|length}}</h2>
+                                    <p>Indécis à JÉSUS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xl-4 col-lg-4">
+                            <div class="wrapper-evang-infos">
+                                <div class="wrapper-whatsapp">
+                                    <div class="total-pers">
+                                        <h2><i class="fa fa-users"></i> {{models|length}}</h2>
+                                        <p>Total</p>
+                                    </div>
+                                    <div class="whatsapp">
+                                        <h2><i class="fa fa-whatsapp"></i> Whatsapp detail</h2>
+                                        <div class="oui-whatsapp">
+                                            <p>{{pers_whatsapp_oui|length}} ont whatsapp</p>
+                                        </div>
+                                        <div class="non-whatsapp">
+                                            <p style="color:red;">{{pers_whatsapp_non|length}} n'ont pas whatsapp</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <form id="form-suppresion-liste" 
+                    action="{% url 'evangelisation:evangelisation_app_operations_models_supprimer' type_opera %}"
+                    method="post" class="form-group marg-top">
+                    {% csrf_token %}
+                    <div class="form-inline form">
+                        <div class="form-field form-inline">
+                            <label for="suppression">Action : </label>
+                            <select name="objects" id="suppression">
+                                <option value="---------">
+                                    ---------
+                                </option>
+                                <option value="supprimer">
+                                    Supprimer les {% if type_opera == "participants" %}
+                                        participants
+                                    {% elif type_opera == "sites" %}
+                                        sites
+                                    {% elif type_opera == "personnes" %}
+                                        personnes
+                                    {% elif type_opera == "évangelisations" %}
+                                        évangelisations
+                                    {% endif %}
+                                    selectionnés
+                                </option>
+                            </select>
+                            <button type="submit" class="btn btn-success btn-sm" id="btn-liste-delete">envoyer</button>
+                            <button type="button" 
+                            class="btn btn-default btn-sm" 
+                            id="btn-search">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="counter-selected">
+                            <b>Résultat : </b> <b id="selection" style="color:red;"></b>
+                        </div>
+                        <div class="wrapper-btn-add">
+                            <a class="btn btn-success btn-sm btn-media-query"
+                                href="{% url 'evangelisation:evangelisation_app_form_nbre' type_opera %}">
+                                <i class="fas fa-plus"></i>
+                                Ajouter
+                        </a>
+                        </div>
+                    </div>
+                    <div class="search-form">
+                        <input type="text" name="query" id="query" 
+                            data-url="{% url 'evangelisation:evangelisation_app_operations_recherche' type_opera %}">
+                        <b id="result-search"></b>
+                    </div>
+                    <div class="results" id="results">
+                        {% if type_opera == "participants" %}
+                            {% include 'pages/participant/liste_participant.html' %}
+                        {% elif type_opera == "sites" %}
+                            {% include 'pages/site/liste_site.html' %}
+                        {% elif type_opera == "personnes" %}
+                            {% include 'pages/personne/liste_personne.html' %}
+                        {% elif type_opera == "évangelisations" %}
+                            {% include 'pages/evangelisation/liste_evangelisation.html' %}
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modal-form">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

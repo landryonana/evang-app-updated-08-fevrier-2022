@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css_root/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css_root/style.css' %}">
+    <link rel="stylesheet" href="{% static 'rapport/css/rapport.css' %}">
+    <title>Pdf generator</title>
+</head>
+<style type="text/css">
+
+    {% if orientation == 'paysage' %}
+        @page{
+            size: landscape;
+            margin-top:  10px;
+            margin-bottom: -10px;
+        }
+    {% elif orientation == 'portrait' %}
+        @page{
+            size: A4;
+            margin-top:  10px;
+            margin-bottom: -10px;
+        }
+    {% endif %}
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        font-size: 11px;
+    }
+
+    .wrapper-stat-evang-evangstatistq table thead {
+        background-color: #006c69;
+        color: #fff;
+    }
+
+    .wrapper-stat-evang{
+        width: 100%;
+        padding: 0 15px;
+    }
+
+
+
+    .wrapper-stat-evang-evangstatistq table thead{
+        background-color: #006c69;
+        color: #fff;
+    }
+
+
+    .row {
+        margin: 0;
+        width: 100%;
+    }
+
+
+    .mt-3, .my-3 {
+        margin-top: 1rem!important;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+   
+
+    .table thead th {
+        border: 1px solid #dee2e6;
+    }
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+    .table td, .table th {
+        padding: 0.75rem;
+        border-top: 1px solid #dee2e6;
+    }
+
+    table thead th {
+        text-transform: uppercase;
+        background-color: #006c69 !important;
+        color: #fff;
+    }
+
+    table thead {
+        text-transform: uppercase;
+        background-color: #006c69 !important;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    .wrapper-printPdf{
+        display: flex;
+        width:100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .wrapper-printPdf .h2-v{
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0px;
+        margin: -10px;
+        text-decoration: underline;
+        text-transform: uppercase;
+        font-size: 25px;
+    }
+
+    .wrapper-printPdf .h2-assembl{
+        display: block;
+        width: 100%;
+        padding: 10px 0px;
+        margin: -10px;
+        text-align: center;
+        text-decoration: underline;
+        text-transform: uppercase;
+        font-size: 15px;
+    }
+
+    .wrapper-printPdf .h2-label-stat{
+        display: block;
+        text-align: center;
+        width: 100%;
+        margin: -10px;
+        padding: 10px 0px;
+        text-transform: uppercase;
+        text-decoration: underline;
+        font-size: 15px;
+    }
+    .image-pdf{
+        height: auto; 
+        width: 100%;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .image-pdf img{
+        height: 120px;
+        width: 160px;
+        border-radius: 50%;
+    }
+</style>
+<body>
+    <div class="home">
+        <div class="wrapper-stat-evang">
+            <div class="wrapper-stat-evang-evangstatistq">
+                <div class="row">
+                    <div class="col-md-12" id="printToPDF">
+                        <div class="image-pdf">
+                            <img src="{{image_src}}/logo/vh-yde.jpg" alt="">
+                        </div>
+                        <div class="mt-3">
+                            <div class="wrapper-printPdf">
+                                <h2 class="mb-3 h2-v">
+                                    Vases D'Honneur Cameroun
+                                </h2>
+                                <h2 class="mb-3 h2-assembl">
+                                    ASSEMBLEE EAUX PAISIBLES DE YAOUNDE
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="row wrapper-printPdf">
+                            <h2 class="mb-3 h2-label-stat">
+                                {% if jour and mois and annee %}
+                                    EVOLUTION MENSUEL D'EVANGELISATION <b style="color: #d4ad14;">({{jour}} {{mois}} {{annee}})</b>
+                                {% elif mois and annee %}
+                                    EVOLUTION MENSUEL D'EVANGELISATION <b style="color: #d4ad14;">({{mois}} {{annee}})</b>
+                                {% elif annee %}
+                                    EVOLUTION MENSUEL D'EVANGELISATION <b style="color: #d4ad14;">({{annee}})</b>
+                                {% endif %}
+                            </h2>
+                        </div>
+                        <div class="table-responsive tab-elmt scroll-tab-rappport" style="margin-top: 15px;">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" rowspan="3">Mois</th>
+                                        <th scope="col" rowspan="3">Nombre de sorties</th>
+                                        <th scope="col" colspan="2">Nombre d'ames</th>
+                                        <th scope="col" rowspan="3">%Recu JÉSUS</th>
+                                        <th scope="col" rowspan="3">Nombre de <br> personnes <br>ayant <br>intégré l'église</th>
+                                        <th scope="col" colspan="3" rowspan="1">Moyenne de participation des boss</th>
+                                        <th scope="col" rowspan="3">Observations</th>
+                                    </tr>
+                                    <tr style="background-color: #006c69; color: #fff;">
+                                        <th rowspan="2">Évangelisés</th>
+                                        <th rowspan="2">Récu JÉSUS</th>
+                                        <th rowspan="2">Hommes</th>
+                                        <th rowspan="2">Femmes</th>
+                                        <th rowspan="2">TOTAL de <br>participation</th>
+                                    </tr>
+                                    <tr style="background-color: #006c69; color: #fff;">
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for evg in all_evang %}
+                                    <tr {% if current_month == evg.mois_id %}class="table-danger" {% endif %}>
+                                        <th scope="row">{{ evg.mois }}</th>
+                                        <td>
+                                            {{ evg.count_sortie }}
+                                        </td>
+                                        <td>{{ evg.ps_evg }}</td>
+                                        <td style="background-color: #54e346;">{{ evg.oui_JESUS }}</td>
+                                        <td style="background-color: #d4ad14;">
+                                            {% if evg.prc_oui_JESUS %}
+                                            {{ evg.prc_oui_JESUS }}%
+                                            {% else %}
+                                            -----
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ evg.rester}}</td>
+                                        <td>{{ evg.count_homme }}</td>
+                                        <td>{{ evg.count_femme }}</td>
+                                        <td style="background-color: #d4ad14;">{{ evg.count_boss }}</td>
+                                        <td>
+                                            {% for observ in observations %}
+                                            {{ observ }}
+                                            {% empty %}
+                                            <p>-----</p>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr style="background-color: coral;">
+                                        <th scope="row">TOTAL</th>
+                                        <td>
+                                            {{ total.all_count_sortie }}
+                                        </td>
+                                        <td>{{ total.all_ps_evg }}</td>
+                                        <td style="background-color: #54e346;">
+                                            {{ total.all_oui_JESUS }}
+                                        </td>
+                                        <td style="background: #d4ad14;">
+                                            {{ total.all_prc_oui_JESUS }}%
+                                        </td>
+                                        <td>{{ total.all_rester }}</td>
+                                        <td>{{ total.all_count_homme }}</td>
+                                        <td>{{ total.all_count_femme }}</td>
+                                        <td style="background: #d4ad14;">
+                                            {{ total.all_count_boss }}
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

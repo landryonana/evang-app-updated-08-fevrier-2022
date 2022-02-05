@@ -1,0 +1,22 @@
+{% load static %}
+<nav class="nav-bar" id="nav-id">
+    <div class="logo">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'images_root/logo/vh-yde.jpg' %}" alt="">
+        </a>
+    </div>
+    <div class="menu-date">
+        {% block menu-date %}
+            <div class="menu-date1">
+                <i class="fas fa-calendar"></i>
+                <span>
+                    {% now "j F Y" %}
+                </span>
+            </div>
+            
+            {% block hamburger %}
+            {% endblock hamburger %}
+                
+        {% endblock menu-date %}
+    </div>
+</nav>

@@ -1,0 +1,86 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="ASSEMBLE EAUX PAISIBLES | Evangélisations">
+        <meta property="og:title" content="ASSEMBLE EAUX PAISIBLES | Evangélisations" />
+        <meta property="og:url" content="{% url 'index' %}"/>
+        <meta property="og:image" content="{% static 'images_root/icon2/favicon2.ico' %}">
+        <link rel="stylesheet" href="{% static 'css_root/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css_root/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css_root/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}">
+        <link rel="stylesheet" href="{% static 'evangelisation/css/evangelisation.css' %}">
+        <link rel="stylesheet" href="{% static 'rapport/css/rapport.css' %}">
+        <link rel="stylesheet" href="{% static 'css_root/media-query.css' %}">
+
+        <script src="{% static 'rapport/js/plotly-2.3.0.min.js' %}"></script>
+        <title>
+            {% block titre %}
+            {% endblock titre %}
+        </title>
+    </head>
+    <style type="text/css">
+        {% block css %}
+
+    {% endblock css %}
+    </style>
+    
+    <body>
+
+        <div class="app">
+            {% load static %}
+            <nav class="nav-bar" id="nav-id">
+                <div class="logo">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'images_root/logo/vh-yde.jpg' %}" alt="">
+                    </a>
+                </div>
+                <div class="menu-date">
+                    {% block menu-date %}
+                        <div class="menu-date1">
+                            <i class="fas fa-calendar"></i>
+                            <span>
+                                {% now "j F Y" %}
+                            </span>
+                        </div>
+                        {% block hamburger %}
+                        {% endblock hamburger %}
+                    {% endblock menu-date %}
+                </div>
+            </nav>
+            {% block sidebar %}
+            {% endblock sidebar %}
+            <div class="container">
+                <div class="wrapper">
+                    <section id="content">
+                        {% block content %}
+                        {% endblock content %}
+                    </section>
+                </div>
+            </div>
+            <div class="wrapper-footer">
+                {% block footer %}
+                {% include 'layouts/_footer.html' %}
+                {% endblock footer %}
+            </div>
+        </div>
+
+
+        <script src="{% static 'js_root/jquery.min.js' %}"></script>
+        <script src="{% static 'js_root/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js_root/script.js' %}"></script>
+        <script src="{% static 'accounts/js/accounts.js' %}"></script>
+        <script src="{% static 'evangelisation/js/evangelisation.js' %}"></script>
+        <script src="{% static 'rapport/js/rapport.js' %}"></script> 
+        {% block script %}
+        {% endblock script %}
+    </body>
+
+</html>

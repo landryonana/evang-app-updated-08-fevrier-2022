@@ -1,0 +1,18 @@
+
+{% for participant in models %}
+<tr class="row-field">
+    <td class="action-checkbox">
+        <input type="checkbox" name="selected_action"
+            value="{{ participant.id }} " class="action-select">
+    </td>
+    <td class="field">
+        <a class="btn-link" href="{% url 'evangelisation:evangelisation_app_operations_modifier' 'participants' participant.id  %}">
+            {{ participant.nom_et_prenom }} 
+        </a>
+    </td>
+    <td class="action-checkbox">
+        {{ participant.sexe }}
+    </td>
+</tr>
+{% endfor %}
+

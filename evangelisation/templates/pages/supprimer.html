@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations | {{type_opera}}
+{% endblock titre %}
+
+{% block hamburger %}
+<div class="menu-btn">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</div>
+{% endblock hamburger %}
+
+{% block sidebar %}
+{% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="wrapper-head-liste">
+    <div class="head-liste">
+        <h2>
+            Liste des
+            {% if type_opera == "participants" %}
+                participants
+            {% elif type_opera == "sites" %}
+                sites
+            {% elif type_opera == "personnes" %}
+                personnes
+            {% elif type_opera == "évangelisations" %}
+                évangelisations
+            {% endif %} à supprimer({{ models|length }})
+        </h2>
+        <h4>{{type_opera}}</h4>
+    </div>
+</div>
+<div class="wrapper-liste">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="liste">
+                <h2 class="text-muted">Êtes-vous sûr ?</h2>
+                <p>
+                    Voulez-vous vraiment supprimer les
+                    {% if type_opera == "participants" %}
+                        participants
+                    {% elif type_opera == "sites" %}
+                        sites
+                    {% elif type_opera == "personnes" %}
+                        personnes
+                    {% elif type_opera == "évangelisations" %}
+                        évangelisations
+                    {% endif %} sélectionnés ? Tous les objets suivants et les
+                    éléments liés seront supprimés :
+                </p>
+                <div class="resume">
+                    <h4>
+                        <b>Résumé</b>
+                    </h4>
+                    <ul>
+                        <li>
+                            {% if type_opera == "participants" %}
+                                participants : {{ models|length }}
+                            {% elif type_opera == "sites" %}
+                                sites : {{ models|length }}
+                            {% elif type_opera == "personnes" %}
+                                personnes : {{ models|length }}
+                            {% elif type_opera == "évangelisations" %}
+                                évangelisations : {{ models|length }}
+                            {% endif %} 
+                        </li>
+                    </ul>
+                </div>
+                <div class="liste-utilisateur-suppr">
+                    <h4>
+                        <b>Les {% if type_opera == "participants" %}
+                            participants
+                        {% elif type_opera == "sites" %}
+                            sites
+                        {% elif type_opera == "personnes" %}
+                            personnes 
+                        {% elif type_opera == "évangelisations" %}
+                            évangelisations
+                        {% endif %}</b>
+                    </h4>
+                    <ul>
+                        {% for model in models %}
+                        <li>
+                            {% if type_opera == "participants" %}
+                                participant {{forloop.counter}} : 
+                            {% elif type_opera == "sites" %}
+                                site {{forloop.counter}} :
+                            {% elif type_opera == "personnes" %}
+                                personne {{forloop.counter}} :
+                            {% elif type_opera == "évangelisations" %}
+                                évangelisation {{forloop.counter}} :
+                            {% endif %}
+                            <a class="suppr-user" href="#">{{ model }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <form 
+                    id="form-suppresion-liste" 
+                    action="{% url 'evangelisation:evangelisation_app_operations_supprimer' type_opera %}" 
+                    method="post" 
+                    class="form-group">
+                    {% csrf_token %}
+                    <div class="results">
+                        {% for model in models %}
+                            <input 
+                                hidden 
+                                type="text" 
+                                name="user_selected" 
+                                value="{{model.id}}">
+                        {% endfor %}
+                        <div class="form-group">
+                            <button type="submit" 
+                                class="btn btn-danger btn-sm">
+                                Supprimers
+                            </button>
+                            <a 
+                                href="{% url 'evangelisation:evangelisation_app_operations' type_opera %}" 
+                                class="btn btn-secondary btn-sm">
+                                Annuler
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

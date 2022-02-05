@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block titre %}
+Assemblée EAUX PAISIBLES|comptes
+{% endblock titre %}
+
+{% block hamburger %}
+<div class="menu-btn">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</div>
+{% endblock hamburger %}
+
+{% block sidebar %}
+{% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="wrapper-head-liste">
+    <div class="head-liste">
+        <h2>Liste des élements à supprimer({{ users|length }})</h2>
+        <h4>Comptes</h4>
+    </div>
+</div>
+<div class="wrapper-liste">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="liste">
+                <h2 class="text-muted">Êtes-vous sûr ?</h2>
+                <p>
+                    Voulez-vous vraiment supprimer les objets utilisateur sélectionnés ? Tous les objets suivants et les
+                    éléments liés seront supprimés :
+                </p>
+                <div class="resume">
+                    <h4>
+                        <b>Résumé</b>
+                    </h4>
+                    <ul>
+                        <li>Utilisateurs: {{ users|length }}</li>
+                    </ul>
+                </div>
+                <div class="liste-utilisateur-suppr">
+                    <h4>
+                        <b>Les utilisateurs</b>
+                    </h4>
+                    <ul>
+                        {% for user in users %}
+                        <li>
+                            Utilisateur: 
+                            <a class="suppr-user" href="#">{{ user }}</a>
+                            <ul>
+                                <li>{{ user.profile }}</li>
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <form 
+                    id="form-suppresion-liste" 
+                    action="{% url 'user_delete_users' %}" 
+                    method="post" 
+                    class="form-group">
+                    {% csrf_token %}
+                    <div class="results">
+                        {% for user in users %}
+                            <input 
+                                hidden 
+                                type="text" 
+                                name="user_selected" 
+                                value="{{user.id}}">
+                        {% endfor %}
+                        <div class="form-group">
+                            <button type="submit" 
+                                class="btn btn-danger btn-sm">
+                                Supprimers
+                            </button>
+                            <a 
+                                href="{% url 'user_comptes' %}" 
+                                class="btn btn-secondary btn-sm">
+                                Annuler
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,25 @@
+<table class="table" id="person-evang">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col" class="action-checkbox-column">
+                <div class="text">
+                    <span>
+                        <input type="checkbox" id="action-toggle">
+                    </span>
+                </div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col">Jour</th>
+            <th scope="col">Site</th>
+        </tr>
+    </thead>
+    <tbody>
+        <div class="spinner" id="spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        {% include 'pages/evangelisation/table_evangelisation.html' %}
+    </tbody>
+    <div id="empty-result"></div>
+</table>

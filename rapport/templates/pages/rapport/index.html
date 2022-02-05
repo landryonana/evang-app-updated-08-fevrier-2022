@@ -1,0 +1,437 @@
+{% extends 'base.html' %}
+
+
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations | Rapport
+{% endblock titre %}
+
+
+
+{% block hamburger %}
+<div class="menu-btn">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</div>
+{% endblock hamburger %}
+
+
+
+{% block sidebar %}
+{% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="home">
+    <div class="wrapper-stat-evang">
+        <div class="row">
+            <div class="col-md-12">              
+                <form id="form-rapport" class="text-center rapport-form" action="{% url 'rapport:rapport_app_index' %}">
+                    <div class="nativeDatePicker">
+                        <input type="date" style="display: none;" id="bday">
+                        <span class="validity"></span>
+                    </div>
+                    <p class="fallbackLabel"></p>
+                    <div class="fallbackDatePicker">
+                        <span class="row">
+                            <label class="col-md-4" for="day">Jour :</label>
+                            <select required id="day" name="jour" class="col-md-8">
+                                <option>----</option>
+                            </select>
+                        </span>
+                        <span class="row">
+                            <label class="col-md-4" for="month">Mois :</label>
+                            <select required id="month" name="mois" class="col-md-8">
+                                <option >----</option>
+                                <option >Janvier</option>
+                                <option >Février</option>
+                                <option >Mars</option>
+                                <option >Avril</option>
+                                <option >Mai</option>
+                                <option >Juin</option>
+                                <option >Juillet</option>
+                                <option >Août</option>
+                                <option >Septembre</option>
+                                <option >Octobre</option>
+                                <option >Novembre</option>
+                                <option >Décembre</option>
+                            </select>
+                        </span>
+                        <span class="row">
+                            <label class="col-md-4" for="year">Année :</label>
+                            <select required id="year" name="annee" class="col-md-8">
+                                <option value="----">----</option>
+                            </select>
+                        </span>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">rechercher</button>
+                </form>
+            </div>
+        </div>  
+        
+        {% if error %}
+            <span class="alert alert-danger error-rapport">
+                Une Erreur c'est produite ( <b>Jour</b> ET/OU <b>mois</b> ET/OU <b>année</b> abscentent )
+                <ul>
+                    <li>jour/mois/année</li>
+                    <li>mois/année</li>
+                    <li>année</li>
+                </ul>
+            </span>
+        {% else %}
+
+            <div class="row">
+                <div class="rapport-title">
+                    <h2>
+                        {% if jour and mois and annee %}
+                            EVOLUTION MENSUEL D'EVANGELISATION DU <b style="color: #d4ad14;">({{jour}} {{mois}} {{annee}})</b>
+                        {% elif mois and annee %}
+                            EVOLUTION MENSUEL D'EVANGELISATION DU <b style="color: #d4ad14;">({{mois}} {{annee}})</b>
+                        {% elif annee %}
+                        EVOLUTION MENSUEL D'EVANGELISATION <b style="color: #d4ad14;">({{annee}})</b>
+                        {% endif %}
+                    </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="wrapper-evang-infos">
+                        <div class="deja">
+                            <h2><i class="fa fa-user"></i> {{pers_deja|length}}</h2>
+                            <p>Déjà à JÉSUS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="wrapper-evang-infos">
+                        <div class="oui">
+                            <h2><i class="fa fa-user"></i> {{pers_oui|length}}</h2>
+                            <p>Oui à JÉSUS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="wrapper-evang-infos">
+                        <div class="non">
+                            <h2><i class="fa fa-user-slash"></i> {{pers_non|length}}</h2>
+                            <p>Non à JÉSUS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="wrapper-evang-infos">
+                        <div class="indecis">
+                            <h2><i class="fa fa-user-slash"></i> {{pers_ras|length}}</h2>
+                            <p>Indécis à JÉSUS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="wrapper-evang-infos">
+                        <div class="wrapper-whatsapp">
+                            <div class="total-pers">
+                                <h2><i class="fa fa-users"></i> {{models|length}}</h2>
+                                <p>Total</p>
+                            </div>
+                            <div class="whatsapp">
+                                <h2><i class="fa fa-whatsapp"></i> Whatsapp detail</h2>
+                                <div class="oui-whatsapp">
+                                    <p>{{pers_whatsapp_oui|length}} ont whatsapp</p>
+                                </div>
+                                <div class="non-whatsapp">
+                                    <p style="color:red;">{{pers_whatsapp_non|length}} n'ont pas whatsapp</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrapper-stat-evang-diagramme">
+                <div class="row mt-3">
+                    
+                    <div class="col-md-6">
+                        <div class="rapport-diagram">
+                            <div id='myDiv'>
+                                <!-- Plotly chart will be drawn inside this DIV -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rapport-diagram">
+                            <div id='myDiv1'>
+                                <!-- Plotly chart will be drawn inside this DIV -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div class="rapport-diagram">
+                            <div id='myDiv2'>
+                                <!-- Plotly chart will be drawn inside this DIV -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-2 mt-3" style="float: right;">
+                    <a class="btn btn-success btn-sm" href="{% if annee %}
+                        {% url 'rapport:generate_pdf' 'portrait' annee %}
+                    {% else %}
+                        {% url 'rapport:generate_pdf' 'portrait' %}
+                    {% endif %}
+                    ">Rapport en PDF(portrait)</a>
+                </div>
+
+                <div class="col-md-2 mt-3" style="float: right;">
+                    <a class="btn btn-success btn-sm" href="{% if annee %}
+                        {% url 'rapport:generate_pdf' 'paysage' annee %}
+                    {% else %}
+                        {% url 'rapport:generate_pdf' 'paysage' %}
+                    {% endif %}
+                    ">Rapport en PDF(paysage)</a>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="wrapper-stat-evang-evangstatistq">
+                <div class="row">
+                    <div class="col-md-12" id="printToPDF">
+                        <div class="mt-3">
+                            <div class="wrapper-printPdf">
+                                <h2 class="mb-3 h2-v">
+                                    Vases D'Honneur Cameroun
+                                </h2>
+                                <h2 class="mb-3 h2-assembl">
+                                    ASSEMBLEE EAUX PAISIBLES DE YAOUNDE
+                                </h2>
+                                <h2 class="mb-3 h2-label-stat">
+                                    {% if jour and mois and annee %}
+                                        EVOLUTION MENSUEL D'EVANGELISATION <b style="color: #d4ad14;">({{jour}} {{mois}} {{annee}})</b>
+                                    {% elif mois and annee %}
+                                        EVOLUTION MENSUEL D'EVANGELISATION <b style="color: #d4ad14;">({{mois}} {{annee}})</b>
+                                    {% elif annee %}
+                                        EVOLUTION MENSUEL D'EVANGELISATION <b style="color: #d4ad14;">({{annee}})</b>
+                                    {% endif %}
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="table-responsive tab-elmt scroll-tab-rappport">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" rowspan="2">Mois</th>
+                                        <th scope="col" rowspan="2">Nombre de sorties</th>
+                                        <th scope="col" colspan="2">Nombre d'ames</th>
+                                        <th scope="col" rowspan="2">%Recu JÉSUS</th>
+                                        <th scope="col" rowspan="2">Nombre de <br> personnes <br>ayant <br>intégré l'église
+                                        </th>
+                                        <th scope="col" colspan="3" rowspan="1">Moyenne de participation des boss</th>
+                                        <th scope="col" rowspan="2">Observations</th>
+                                        <th scope="col" rowspan="2">Détail</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2">Évangelisés</th>
+                                        <th rowspan="2">Récu JÉSUS</th>
+                                        <th rowspan="1">Hommes</th>
+                                        <th rowspan="1">Femmes</th>
+                                        <th rowspan="2">TOTAL de <br>participation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for evg in all_evang %}
+                                    <tr {% if current_month == evg.mois_id %}class="table-danger" {% endif %}>
+                                        <th scope="row">{{ evg.mois }}</th>
+                                        <td>
+                                            {{ evg.count_sortie }}
+                                        </td>
+                                        <td>{{ evg.ps_evg }}</td>
+                                        <td style="background-color: #54e346;">{{ evg.oui_JESUS }}</td>
+                                        <td style="background: #d4ad14;">
+                                            {% if evg.prc_oui_JESUS %}
+                                            {{ evg.prc_oui_JESUS }}%
+                                            {% else %}
+                                            -----
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ evg.rester}}</td>
+                                        <td>{{ evg.count_homme }}</td>
+                                        <td>{{ evg.count_femme }}</td>
+                                        <td style="background: #d4ad14;">{{ evg.count_boss }}</td>
+                                        <td>
+                                            {% for observ in observations %}
+                                            {{ observ }}
+                                            {% empty %}
+                                            <p>-----</p>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            <button data-url="{% url 'rapport:rapport_app_detail' evg.mois_id %}"
+                                                type="button" class="btn btn-link rapport-btn-detail">
+                                                détail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr style="background-color: coral;">
+                                        <th scope="row">TOTAL</th>
+                                        <td>
+                                            {{ total.all_count_sortie }}
+                                        </td>
+                                        <td>{{ total.all_ps_evg }}</td>
+                                        <td style="background-color: #54e346;">
+                                            {{ total.all_oui_JESUS }}
+                                        </td>
+                                        <td style="background: #d4ad14;">
+                                            {{ total.all_prc_oui_JESUS }}%
+                                        </td>
+                                        <td>{{ total.all_rester }}</td>
+                                        <td>{{ total.all_count_homme }}</td>
+                                        <td>{{ total.all_count_femme }}</td>
+                                        <td style="background: #d4ad14;">
+                                            {{ total.all_count_boss }}
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal fade" id="modal-rapport">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h1>landry rapport evangelisation</h1>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+{% block script %}
+<script type="text/javascript">  
+
+    $(document).ready(function(){
+
+        $('#pdf').click(function(e){
+            generatePDF();
+        })
+
+        $('.rapport-btn-detail').click(function(){
+            $.ajax({
+            url: $(this).attr("data-url"),
+            type:'get',
+            dataType:'json',
+            beforeSend:function(){
+                $("#modal-rapport .modal-content").html("");
+                $('#modal-rapport').modal('show');
+            },
+            success:function(data){
+                $("#modal-rapport .modal-content").html(data.html_table);
+            }
+        })
+        })
+
+    });
+
+
+
+    //=======================================================================================================
+    //=======================================================================================================
+    //=======================================================================================================
+    //=======================================================================================================
+    var jour = "{{jour}}";
+    var mois = "{{mois}}";
+    var annee = "{{annee}}";
+    var title = null;
+    var title_rond = null;
+    if (jour && mois && annee){
+        title = `EVOLUTION MENSUEL D'EVANGELISATION (${jour}/${mois}/${annee})`;
+        title_rond = `Proportion des personnes évangelisés (${jour}/${mois}/${annee})`;
+    }else if(mois && annee){
+        title = `EVOLUTION MENSUEL D'EVANGELISATION (${mois}/${annee})`;
+        title_rond = `Proportion des personnes évangelisés (${mois}/${annee})`;
+    }else if(annee){
+        title = `EVOLUTION MENSUEL D'EVANGELISATION (${annee})`;
+        title_rond = `Proportion des personnes évangelisés (${annee})`;
+    }
+
+    if ($(window).width() <= 575) {
+        height =350;
+        width = $(window).width();
+    }
+
+    var yArray = [{{ pers_deja|length}}, {{ pers_oui|length }}, {{ pers_non|length }}, {{ pers_ras|length }}];
+    var xArray = ['Déjà à JÉSUS', 'Oui à JÉSUS', 'Non à JÉSUS', 'Indécis à JÉSUS'];
+    var ultimateColors = ['#007bff', '#28a745', '#dc3545', '#fd7e14'];
+    var height = 0;
+    var width = 0;
+
+    
+
+    var layout = {
+        title: title_rond,
+        height: height,
+        width: width,
+    };
+    
+    var data = [{
+        labels:xArray, 
+        values:yArray, 
+        type:"pie",
+        marker: {
+            colors: ultimateColors
+        },
+    }];
+
+    Plotly.newPlot('myDiv', data, layout);
+    
+    //==================================================================================================
+    //==================================================================================================
+    //==================================================================================================
+    var layout1 = {
+        height: 350,
+        width:width,
+        title: title_rond,
+    };
+    var data1 = [{
+        x: ['Oui à JÉSUS', 'Non à JÉSUS', 'Déjà à JÉSUS', 'Indécis à JÉSUS'],
+        y: [{{ pers_oui|length}}, {{ pers_non|length }}, {{ pers_deja|length }}, {{ pers_ras|length }}],
+        type: 'bar'
+    }];
+    Plotly.newPlot('myDiv1', data1, layout1);
+
+    //==========================================================================================
+    //==========================================================================================
+    
+
+    var layout2 = {
+        height: 450,
+        width:width,
+        title: title,
+    };
+    var data = [{
+            x: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            y: [{{janvier_oui}}, {{fevrier_oui}}, {{mars_oui}}, {{avril_oui}},
+            {{mai_oui}}, {{juin_oui}}, {{juillet_oui}}, {{aout_oui}}, {{septembre_oui}},
+            {{octobre_oui}}, {{novembre_oui}}, {{decembre_oui}}],
+            type: 'scatter'
+        }];
+    Plotly.newPlot('myDiv2', data, layout2);
+
+</script>
+{% endblock script %}

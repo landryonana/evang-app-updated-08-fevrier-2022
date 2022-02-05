@@ -1,0 +1,258 @@
+
+table#person-evang thead{
+    background-color: #006c69;
+    color: #fff;
+    font-size: 13px;
+}
+
+
+.wrapper-evang-infos{
+    margin: 12px 10px 5px 0px;
+}
+
+.deja, .oui, .non, .indecis{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    /*box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 20%);*/    
+}
+
+.deja{
+    background-color: #3EDBF0;
+}
+
+.oui{
+    background-color: #54E346;
+} 
+.non{
+    background-color: #E71414;
+} 
+.indecis{
+    background-color: #fd7e14;
+}
+.actived-sub{
+    background-color: #007bff;
+}
+.deja h2, 
+.oui h2, 
+.non h2, 
+.indecis h2{
+    font-size: 35px;
+}
+
+.wrapper-whatsapp{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 15px 5px 0px 10px;
+    background-color: #e9ecef;
+}
+
+
+.wrapper-whatsapp .total-pers{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper-whatsapp .total-pers h2{
+    font-size: 35px;
+}
+.whatsapp{
+    padding-right: 15px;
+}
+
+.whatsapp h2{
+    font-size: 25px;
+}
+.whatsapp p{
+    margin: 0;
+    padding: 5px 0px;
+}
+
+.marg-top{
+    margin-top: 25px;
+}
+
+.wrapper-evang{
+    padding: 0px 15px;
+    width: 100%;
+}
+
+.wrapper-tabl-evang{
+    padding: 0px 15px;
+    width: 100%;
+    margin-top: 35px;
+}
+
+.wrapper-detail-evang{
+    margin-right: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.1);
+    width: 100%;
+}
+
+.wrapper-detail-evang .row{
+    padding: 15px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.wrapper-detail-evang h2{
+    font-size: 25px;
+    text-decoration: underline;
+    padding: 15px 0px 0px;
+}
+
+.wrapper-detail-participants h2,
+.wrapper-tabl-evang h2{
+    font-size: 25px;
+    text-decoration: underline;
+}
+
+.wrapper-detail-participants{
+    box-shadow: 0 4px 8px 0 rgba(0 0 0 / 10%);
+    padding: 15px;
+    margin-left: 25px;
+}
+
+.evang-dropdow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px 0px;
+}
+
+
+.modal-content h4{
+    font-size: 25px;
+    padding: 15px;
+    padding-left: 25px;
+    background-color: #006c69;
+    color: #fff;
+}
+
+
+
+.evang-dropdow form{
+    width: 100%;
+    padding: 0px 7px;
+}
+
+
+.form-btn-select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.pd-evang-form{
+    padding: 0px 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

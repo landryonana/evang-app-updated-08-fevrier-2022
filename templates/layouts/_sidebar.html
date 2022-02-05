@@ -1,0 +1,93 @@
+{% load static %}
+<div class="side-bar">
+    <div class="bloc-side-bar-link">
+        <div class="side-bar-logo">
+            <a href="{% url 'user_detail' %}">
+                {% if user.profile.image  %}
+                <img src="{{ user.profile.image.url }}" alt="">
+                {% else %}
+                <img src="{% static 'images_root/logo/vh-yde.jpg' %}" alt="">
+                {% endif %}
+            </a>
+            <p>Bienvenue, <b>{{ request.user }}</b></p>
+        </div>
+        <div class="side-bar-account">
+            <div class="item {% if select_link == 'profile' %}actived{% endif %}">
+                <a href="{% url 'user_detail' %}">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+            </div>
+            <div class="item {% if select_link == 'comptes' %}actived{% endif %}">
+                <a href="{% url 'user_comptes' %}">
+                    <i class="fas fa-users"></i>
+                    Comptes
+                </a>
+            </div>
+            <div class="item">
+                <a href="{% url 'user_logout' %}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Se deconnecter
+                </a>
+            </div>
+        </div>
+        <hr>
+        <div class="menu">
+            <div class="item {% if select_link == 'evangelisation' %}actived{% endif %}">
+                <a href="{% url 'evangelisation:evangelisation_app_index' %}">
+                    <i class="fas fa-home"></i>
+                    Évangelisation
+                </a>
+            </div>
+            <div class="item">
+                <a class="sub-btn {% if select_link == 'opérations' %}actived{% endif %}">
+                    <i class="fas fa-cogs"></i>
+                    Opérations
+                    <i class="fas fa-angle-right dropdown"></i>
+                </a>
+                <div class="sub-menu">
+                    <a class="sub-item {% if select_link_sub == 'opérations-evang' %}actived-sub{% endif %}" 
+                    href="{% url 'evangelisation:evangelisation_app_operations' 'évangelisations' %}">
+                        <i class="fas fa-tint"></i>
+                        Évangelisations
+                    </a>
+                    <a class="sub-item {% if select_link_sub == 'opérations-site' %}actived-sub{% endif %}" 
+                        href="{% url 'evangelisation:evangelisation_app_operations' 'sites' %}">
+                        <i class="fas fa-broadcast-tower"></i>
+                        Sites
+                    </a>
+                    <a class="sub-item {% if select_link_sub == 'opérations-part' %}actived-sub{% endif %}" 
+                        href="{% url 'evangelisation:evangelisation_app_operations' 'participants' %}">
+                        <i class="fas fa-user-graduate"></i>
+                        Participants
+                    </a>
+                    <a class="sub-item {% if select_link_sub == 'opérations-pers' %}actived-sub{% endif %}" 
+                        href="{% url 'evangelisation:evangelisation_app_operations' 'personnes' %}">
+                        <i class="fas fa-users"></i>
+                        Personnes
+                    </a>
+                </div>
+            </div>
+            <div class="item {% if select_link == 'rapport' %}actived{% endif %}">
+                <a href="{% url 'rapport:rapport_app_index' %}">
+                    <i class="fas fa-print"></i>
+                    Rapport
+                </a>
+            </div>
+            <div class="item">
+                <a href="">
+                    <i class="fas fa-phone"></i>
+                    Suivi(pas encore dispo)
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="">
+                    <i class="fas fa-backup"></i>
+                    Backup
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="block-empty"></div>
+</div>

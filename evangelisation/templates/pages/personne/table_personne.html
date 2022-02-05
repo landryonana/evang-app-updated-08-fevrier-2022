@@ -1,0 +1,57 @@
+{% for pers in models %}
+    <tr>
+        <td scope="row" class="action-checkbox">
+            <input type="checkbox" name="selected_action"
+                value="{{ pers.id }} " class="action-select">
+        </td>
+        <td>{{ pers.evangelisation.day|date:"d/m/Y" }}</td>
+        <td>{{ pers.evangelisation.site }}</td>
+        <td>
+            <a style="color: #d4ad14;" href="{% url 'evangelisation:evangelisation_app_operations_modifier' 'personnes' pers.id  %}">
+                {{ pers.nom_et_prenom }}
+            </a>
+        </td>
+        <td>{{ pers.contacts }}</td>
+        <td>{{ pers.quartier_d_habitation }}</td>
+
+        {% if pers.accepte_jesus == 'oui' %}
+            <td style="background-color: #54E346;"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        {% elif pers.accepte_jesus == 'non' %}
+            <td></td>
+            <td style="background-color: #E71414;"></td>
+            <td></td>
+            <td></td>
+        {% elif pers.accepte_jesus == 'déjà' %}
+            <td></td>
+            <td></td>
+            <td style="background-color: #3EDBF0;"></td>
+            <td></td>
+        {% elif pers.accepte_jesus == 'ras' %}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="background-color: #fd7e14;"></td>
+        {% endif %}
+        
+        <td>
+            {% for boss in pers.boss.all %}
+            {{ boss.nom_et_prenom }}
+            {% ifnotequal forloop.last True  %}
+            <b> & </b>
+            {% endifnotequal %}
+            {% endfor %}   
+        </td>
+        <td>{{ pers.evangelisation.heure_de_debut }}</td>
+        <td>{{ pers.evangelisation.heure_de_fin }}</td>
+        <td>{{ pers.evangelisation.dure }}</td>
+        <td style="background-color: #d4ad14;{% if personne.whatsapp == 'oui' %}
+                color: green;
+                font-weight: bold;
+            {% endif %}">{{ pers.whatsapp }}</td>
+        <td style="min-width: 135px;">{{ pers.sujets_de_priere|truncatewords:3|linebreaks }}</td>
+        <td style="min-width: 135px;">{{ pers.temoignages|truncatewords:3|linebreaks }}</td>
+    </tr>
+{% endfor %}

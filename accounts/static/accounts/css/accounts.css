@@ -1,0 +1,449 @@
+.wrapper-login, .wrapper-reset-passe{
+    display: flex;
+    justify-content: center;
+    background: #006c69;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.wrapper-login .login, .reset-passe{
+    position: relative;
+    background: #fff;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 7px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 20%);
+}
+
+.wrapper-login .login{
+    width: 300px;
+}
+
+.reset-passe{
+    width: 300px;
+}
+
+.reset-passe h2{
+    display: block;
+    font-size: 20px;
+    padding: 7px 0px;
+    font-weight: bold;
+}
+
+.reset-passe p{
+    display: block;
+    font-size: 15px;
+    color: red;
+}
+.wrapper-logo{
+    display: flex;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+    padding: 15px 0px;
+}
+
+.wrapper-logo .login-image{
+    height: 100px;
+    width: 100px;
+}
+
+.login-image img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+}
+
+.form-group  label{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.wrapper-login-btn .btn, 
+.wrapper-reset-btn .btn{
+    width: 100%;
+}
+
+.btn-success{
+    background: #006c69;
+    border: none;
+    border-radius: 7px;
+}
+
+.btn-secondary{
+    background: #ceae1b;
+    border: none;
+
+}
+
+.btn-success:focus,
+.btn-success:hover{
+    background: #006c69;
+}
+
+.btn-secondary:focus,
+.btn-secondary:hover{
+    background: #ceae1b;
+}
+
+
+.wrapper-error-form{
+    width: 100%;
+    padding: 0px 5px;
+}
+
+.wrapper-sauver{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+.error-form{
+    width: 100%;
+    background: #b3a525;
+    padding: 15px 7px;
+}
+.error-form h4{
+    font-size: 21px;
+}
+
+.sauver h2{
+    font-size: 95px;
+    text-align: center;
+}
+
+.wrapper-head-liste{
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px;
+    /* padding: 15; */
+    /* margin: 15px; */
+} 
+.wrapper-head-liste .head-liste{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #006c69;
+}
+
+.head-liste h2{
+    display: block;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.head-liste h4{
+    display: block;
+    font-style: italic;
+    color: #fff;
+}
+
+.wrapper-liste{
+    width: 100%;
+}
+
+.side-liste{
+    width: 100%;
+    border-right: 2px solid #006c69;
+    border-top: 2px solid #006c69;
+    margin-top: 47px;
+    /* box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 20%); */
+}
+
+.side-liste .item a {
+    color: #444;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+    padding: 5px 0px 5px 5px;
+    line-height: 42px;
+}
+
+.liste{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    /* align-items: center; */
+    flex-wrap: wrap;
+    width: 100%;
+    padding-left: 5px;
+    margin-top: 35px;
+    }
+
+.liste form#form-suppresion-liste{
+    width: 100%;
+}
+
+.liste form#form-suppresion-liste label{padding: 5px 5px 5px 0px;font-weight: bold;}
+
+select{
+    padding: 4px 8px;
+    border: none;
+    margin-right: 5px;
+    border-radius: 7px;
+    background: #c7ebca;
+}
+
+.counter-selected{}
+
+.counter-selcted b{
+    
+}
+
+.wrapper-btn-add{
+
+}
+
+.results{
+    margin-top: 25px;
+    margin-left: 5px;
+    position: relative;
+}
+table thead th{
+    text-transform: uppercase;
+}
+.row-field{
+
+}
+.messages{margin-left: 5px;border-radius: 7px;list-style: none;}
+
+.messages li,
+.messages li b{
+    color: #fff;
+}
+
+.error{
+    background: #db2b2b;
+    padding: 5px 25px;
+}
+
+.success{
+    background: green;
+    padding: 5px 25px;
+}
+
+.info{
+    background: rgb(37, 211, 235);
+    padding: 5px 25px; 
+}
+
+.form{
+    justify-content: space-between;
+}
+
+.form-field{
+
+}
+
+
+.resume,
+.liste-utilisateur-suppr{
+
+}
+
+.resume h4,
+.liste-utilisateur-suppr h4{
+    
+}
+
+.resume ul,
+.liste-utilisateur-suppr ul{
+    margin-left: 35px;
+}
+
+.resume ul li,
+.liste-utilisateur-suppr ul li{
+    
+}
+
+.wrapper-404{
+
+}
+
+
+.text-404{
+
+}
+
+.text-404 h1{
+    
+}
+
+.text-404 h4{
+    
+}
+
+#btn-search{
+    border: 1px solid rgb(0 123 255 / 25%);
+    margin-left: 5px;
+}
+
+#btn-search:focus{
+    border: 2px solid #006c69;
+}
+
+#btn-search i{
+    font-size: 15px;
+}
+
+.search-form{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px 0px;
+    background-color: #ceae1b;
+    transition: .5s ease;
+    transition-property: display;
+}
+
+.search-form.active{
+    display: flex;
+}
+
+.search-form input{
+    width: 50%;
+    padding: 5px;
+    border-radius: 7px;
+    border: none;
+    outline: none;
+}
+
+.wrapper-user{
+    padding: 45px 15px;
+    width: 100%;
+}
+
+.user-profile-image{width: 100%;text-align: center;margin-top: 25px;}
+
+.user-profile-image img{
+    height: 250px;
+    width: 250px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.user-profile-info{
+    width: 100%;
+    margin-top: 35px;
+}
+
+.user-profile-info h4{
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.user-profile-info p{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.br-bottom{
+    padding: 17px 0px 5px 0px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    align-items: center;
+}
+
+.wrap-ud-btn{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.wrap-ud-btn .ud-btn {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.ud-btn a.btn-sm{
+    margin: 0px 5px 15px 0px;
+    width: 20%;
+}
+
+.wrapper-text-reset-passe{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 35px;
+
+}
+
+.wrapper-text-reset-passe h2{
+    display: block;
+    font-size: 25px;
+    text-align: center;
+    width: 100%;
+}
+
+
+#id_image{
+    overflow: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css_root/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css_root/style.css' %}">
+    <link rel="stylesheet" href="{% static 'rapport/css/rapport.css' %}">
+    <title>Pdf generator</title>
+</head>
+
+<body>
+    <div class="home">
+    <div class="wrapper-stat-evang">
+        <div class="wrapper-stat-evang-evangstatistq">
+            <div class="row">
+                <div class="col-md-12" id="printToPDF">
+                    <div class="table-responsive tab-elmt scroll-tab-rappport" style="margin-top: 15px;">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" rowspan="3">#</th>
+                                    <th scope="col" rowspan="3">Date</th>
+                                    <th scope="col" rowspan="3">Site d'évangelisation</th>
+                                    <th scope="col" colspan="2">Nombre d'ames</th>
+                                    <th scope="col" rowspan="3">%Recu JÉSUS</th>
+                                    <th scope="col" colspan="3" rowspan="1">Moyenne de participation des boss</th>
+                                    <th scope="col" rowspan="3">Observations</th>
+                                </tr>
+                                <tr style="background-color: #006c69; color: #fff;">
+                                    <th rowspan="2">Évangelisés</th>
+                                    <th rowspan="2">Récu JÉSUS</th>
+                                    <th rowspan="2">Hommes</th>
+                                    <th rowspan="2">Femmes</th>
+                                    <th rowspan="2">TOTAL de <br>participation</th>
+                                </tr>
+                                <tr style="background-color: #006c69; color: #fff;">
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for evg in evangs_mois %}
+                                <tr>
+                                    <th scope="row">{{ forloop.count }}</th>
+                                    <th scope="row">{{ evg.day }}</th>
+                                    <td>
+                                        {{ evg.site }}
+                                    </td>
+                                    <td>{{ evg.ps_evg }}</td>
+                                    <td style="background-color: #54e346;">{{ evg.oui_JESUS }}</td>
+                                    <td style="background-color: #d4ad14;">
+                                        {% if evg.prc_oui_JESUS %}
+                                        {{ evg.prc_oui_JESUS }}%
+                                        {% else %}
+                                        -----
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ evg.rester}}</td>
+                                    <td>{{ evg.count_homme }}</td>
+                                    <td>{{ evg.count_femme }}</td>
+                                    <td>
+                                        {% for observ in observations %}
+                                        {{ observ }}
+                                        {% empty %}
+                                        <p>-----</p>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

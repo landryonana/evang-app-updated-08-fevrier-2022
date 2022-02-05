@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations
+{% endblock titre %}
+
+{% block content %}
+<div class="home">
+    <div class="row media-grd media-petit">
+        <h2>Bienvenue, <b>{{ request.user }}</b> et content de vous revoir!!!</h2>
+    <h4>Cantique des degrés.De David Voici, oh! qu'il est agréable, qu'il est doux pour des frères de demeurer
+        ensemble!
+        <br>
+        <b style="color:rgb(56, 87, 155);">PSAUMES 133:1</b>
+    </h4>
+    <h4>
+        Qu'ils sont beaux sur les montagnes, Les pieds de celui qui apporte de bonnes nouvelles, Qui publie la paix ! De
+        celui qui apporte de bonnes nouvelles, Qui publie le salut ! De celui qui dit à Sion : ton Dieu règne ! 
+        <br>
+        <b style="color: rgb(56, 87, 155);">Esaïe 52:7</b>
+    </h4>
+    <div class="wrapper-btn">
+        <a href="{% url 'user_logout' %}" class="btn btn-link btn-sm">
+            <i class='fa fa-sign-out'></i> se déconnecter
+        </a>
+        <a href="{% url 'evangelisation:evangelisation_app_index' %}" class="btn btn-secondary btn-sm">
+            continue
+            <i class="fa fa-arrow-right"></i>
+        </a>
+    </div>
+    </div>
+</div>
+{% endblock content %}

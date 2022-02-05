@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations | Opérations
+{% endblock titre %}
+
+{% block hamburger %}
+<div class="menu-btn">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</div>
+{% endblock hamburger %}
+
+{% block sidebar %}
+{% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="wrapper-head-liste">
+    <div class="head-liste">
+        <h2>Formulaire{% if form_nbre > 1 %}s ( {{ form_nbre }} ){% else %}
+            ( {{ form_nbre }} )
+        {% endif %}
+            </h2>
+        <h4>Évangelisations</h4>
+    </div>
+</div>
+<div class="wrapper-liste">
+    <div class="row">
+        <div class="col-md-2">
+            {% include 'partials/operation-side-bar-link.html' %}
+        </div>
+        <div class="col-md-10">
+            {% if messages %}
+                {% include 'partials/messages_request.html' %}
+            {% endif %}
+            {% if has_error %}
+                <ul class="form_erros">
+                    {{ errors }}
+                </ul>
+            {% endif %}
+            <div class="liste">
+                {% load widget_tweaks %}
+                
+                {% if multi %}
+                <form id="form-suppresion-liste" 
+                        action="{% url 'evangelisation:evangelisation_multi_form' form_nbre %}" 
+                        method="post" 
+                        class="form-group row">
+                    {% csrf_token %}
+                    {% for form in form_set %}
+                        <div class="col-md-3">
+                            <div class="wrapper-form_set_item">
+                                <h4 class="form-name">formulaire {{form.instance.pk}}</h4>
+                                <div class="form_set_item_field">
+                                    {% for field in form %}
+                                    <div class="form-group {% if field.errors %}has-error{% endif %}" style="overflow: auto;">
+                                        <div class="form-field">
+                                            <label for="{{ field.id_for_label }}">{{field.label}}</label> 
+                                            {% render_field field class="form-control" %}
+                                            <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                            {% for error in field.errors %}
+                                                <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #e99fa6;">
+                                                    {{ error }}
+                                                </p>
+                                            {% endfor %} 
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </form>
+                {% else %}
+                <form id="form-suppresion-liste" method="post" class="form-group">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group form-center  {% if field.errors %}has-error{% endif %}" style="overflow: auto;">
+                        <div class="form-field">
+                            <label for="{{ field.id_for_label }}">{{field.label}}</label> 
+                            {% render_field field class="form-control" %}
+                            <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                            {% for error in field.errors %}
+                                <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #dc3545;border-radius: 7px;">
+                                    {{ error }}
+                                </p>
+                            {% endfor %} 
+                        </div>
+                    </div>
+                    {% endfor %}
+                </form>
+                {% endif %}
+                    
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-form">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

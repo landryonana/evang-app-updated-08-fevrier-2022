@@ -1,0 +1,17 @@
+{% for evang in models %}
+<tr class="row-field">
+    <td class="action-checkbox">
+        <input type="checkbox" name="selected_action"
+            value="{{ evang.id }} " class="action-select">
+    </td>
+    <td class="field">
+        <a class="btn-link" href="{% url 'evangelisation:evangelisation_app_operations_modifier' 'évangelisations' evang.id  %}">
+            {{ evang.day }} 
+        </a>
+    </td>
+    <td class="field">
+        {{ evang.site }} 
+    </td>
+</tr>
+{% endfor %}
+

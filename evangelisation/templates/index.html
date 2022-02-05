@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations
+{% endblock titre %}
+
+
+
+{% block hamburger %}
+    <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+    </div>
+{% endblock hamburger %}
+
+
+
+{% block sidebar %}
+    {% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="home">
+
+    <div class="wrapper-evang">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="wrapper-detail-evang">
+                    <div class="evang-dropdow">
+                        <div class="row">
+                            {% if messages %}
+                                <div class="col-md-12">
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                        <li class="{{ message.tags }}">
+                                            {{ message|safe }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            <form action="{% url 'evangelisation:evangelisation_app_index' %}">
+                                <div class="col-md-6">
+                                    <div class="form-group pd-evang-form">
+                                        <label for="liste-evang" ><b>Evangelisation</b></label>
+                                        <select onchange="form.submit()" name="liste-evang" id="liste-evang" class="form-control">
+                                            {% for evg in evangs %}
+                                                <option 
+                                                {% if evang_first.id == evg.id %}
+                                                    selected="true"
+                                                {% endif %}
+                                                    value="{{evg.id}}">{{evg}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <dl class="dl-horizontal"> 
+                        <div class="pt-2">
+                            <div class="row">
+                                <dt class="col-sm-6">Évangélisation du :</dt> 
+                                <dd class="col-sm-6">{{ evang_first.day|date:"d/m/y" }}</dd> 
+                            </div>
+                            
+                            <div class="row">
+                                <dt class="col-sm-6">Lieu :</dt> 
+                                <dd class="col-sm-6">{{ evang_first.site }}</dd> 
+                            </div>
+
+                            <div class="row">
+                                <dt class="col-sm-6">Heure de début :</dt> 
+                                <dd class="col-sm-6">{{ evang_first.heure_de_debut|time:'H:i' }}</dd> 
+                            </div>
+                        
+                            <div class="row">
+                                <dt class="col-sm-6">Heure de fin :</dt> 
+                                <dd class="col-sm-6">{{ evang_first.heure_de_fin|time:'H:i' }}</dd>
+                            </div>
+                
+                            <div class="row">
+                                <dt class="col-sm-6">Durée :</dt> 
+                                <dd class="col-sm-6">{{ evang_first.dure }}</dd>
+                            </div>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="wrapper-detail-participants" {% if evang_first.boss.count > 0 %}style="height: 454px;overflow: auto;"{% endif %}>
+                    <h2 class="mb-3 h-deco">
+                        Liste des présents(<b style="color: #d4ad14;">{{evang_first.boss.count}} présent(s)</b>)
+                    </h2> 
+                    <div class="rempl">
+                        <div class="table-responsive tab-elmt scroll-tab-elmt-evang-boss">
+                            <table class="table table-hover" id="table-evang">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" rowspan="2">#</th>
+                                        <th scope="col" rowspan="2">Nom et Prenom</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for boss in evang_first.boss.all %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ boss.nom_et_prenom }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <p class="tabl_empty">pas de donnée</p>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-tabl-evang">
+        <h2>Personnes évangelisés le {{evang_first.day|date:"d/m/y"}} avec
+            {% if evang_first.personnes.count > 0 %}
+                <b style="color: #d4ad14;"> {{ evang_first.personnes.count }} personne(s)</b>
+            {% endif %}
+        </h2>
+        
+        {% include 'table-index.html' %}
+    </div>
+</div>
+{% endblock content %}

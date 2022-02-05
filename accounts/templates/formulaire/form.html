@@ -1,0 +1,72 @@
+{% load widget_tweaks %}
+
+
+
+{% if form %}
+    {% for field in form %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}" style="overflow: auto;">
+        {% if request.user.is_superuser %}    
+            <label for="{{ field.id_for_label }}">{{field.label}}</label> 
+            {% render_field field class="form-control" %}
+            <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+            {% for error in field.errors %}
+                <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #dc3545;border-radius: 7px;">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        {% else %}
+            {% if field.label == 'Statut super-utilisateur' %}
+            {% else %}
+                <label for="{{ field.id_for_label }}">{{field.label}}</label> 
+                {% render_field field class="form-control" %}
+                <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                {% for error in field.errors %}
+                    <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #dc3545;border-radius: 7px;">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+        {% endif %} 
+    </div>
+    {% endfor %}
+{% else %}
+    {% for field in user_form %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+        {% if field.label == 'Statut super-utilisateur' %}
+            {% if request.user.is_superuser %}
+                <label for="{{ field.id_for_label }}">{{field.label}}</label> 
+                {% render_field field class="form-control" %}
+                <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                {% for error in field.errors %}
+                    <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #dc3545;border-radius: 7px;">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            <label for="{{ field.id_for_label }}">{{field.label}}</label> 
+            {% render_field field class="form-control" %}
+            <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+            {% for error in field.errors %}
+                <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #dc3545;border-radius: 7px;">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        {% endif %}       
+    </div>
+    {% endfor %}
+    {% for field in profile_form %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+        <label for="{{ field.id_for_label }}">{{field.label}}</label>
+        {% render_field field class="form-control" %}
+        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+        {% for error in field.errors %}
+            <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #dc3545;border-radius: 7px;">
+                {{ error }}
+            </p>
+        {% endfor %}
+        
+    </div>
+    {% endfor %}
+{% endif %}
+    

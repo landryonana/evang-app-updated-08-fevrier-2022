@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block titre %}
+    Assemblée EAUX PAISIBLES|comptes
+{% endblock titre %}
+
+
+{% block hamburger %}
+    <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+    </div>
+{% endblock hamburger %}
+
+
+{% block sidebar %}
+    {% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+    <div class="wrapper-head-liste">
+        <div class="head-liste">
+            <h2>
+                {% if compte %}
+                Ajouter un nouveau utilisateur
+                {% endif %}
+            </h2>
+            <h4>Comptes</h4>
+        </div>
+    </div>
+    <div class="wrapper-liste">
+        <div class="row">
+            <div class="col-md-3">
+                {% include 'partials/user-side-bar-link.html' %}
+            </div>
+            <div class="col-md-9">
+                <div class="wrapper-form">
+                    {% if messages %}
+                    {% include 'partials/messages_request.html' %}
+                    {% endif %}
+
+                    {% if has_error %}
+                    <ul class="form_erros">
+                        {{ errors }}
+                    </ul>
+                    {% endif %}
+
+                    <form action="{% url 'user_register' %}" method="post">
+                        {% csrf_token %}
+                        {% include 'formulaire/form.html' %}
+                        {% include 'partials/bouton_form.html' %}
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

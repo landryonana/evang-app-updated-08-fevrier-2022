@@ -1,0 +1,52 @@
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vase d'honneur Cameroun-Yaoundé|Évangelisation">
+    <meta property="og:title" content="Vase d'honneur Cameroun-Yaoundé|Évangelisation" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="{% static 'images_root/icon2/favicon2.ico' %}">
+    <link rel="stylesheet" href="{% static 'css_root/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}">
+    <link rel="stylesheet" href="{% static 'css_root/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css_root/media-query.css' %}">
+    <title>
+        ASSEMBLE EAUX PAISIBLES | Evangélisations | Réinitialiser le mot de passe
+    </title>
+</head>
+<body>
+    <div class="wrapper-reset-passe">
+        <div class="reset-passe">
+            <div class="wrapper-logo">
+                <div class="login-image">
+                    <img src="{% static 'images_root/logo/vh-yde.jpg' %}" alt="">
+                </div>
+            </div>
+            <h2>
+                {% block titre %}
+                
+                {% endblock titre %}
+            </h2>  
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                {% block item %}
+                    
+                {% endblock item %}
+                    
+                <div class="wrapper-reset-btn">
+                    {% block reset-btn %}
+                    
+                    {% endblock reset-btn %}   
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'js_root/jquery.min.js' %}"></script>
+    <script src="{% static 'js_root/bootstrap.min.js' %}"></script>
+    <script src="{% static 'accounts/js/accounts.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" id="person-evang">
+        <thead>
+            <tr>
+                <th scope="col" rowspan="2" class="action-checkbox-column">
+                    <div class="text">
+                        <span>
+                            <input type="checkbox" id="action-toggle">
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" rowspan="2">Date</th>
+                <th scope="col" rowspan="2">Site dévangelisation</th>
+                <th scope="col" rowspan="2">Nom et prénom</th>
+                <th scope="col" rowspan="2">Contact</th>
+                <th scope="col" rowspan="2">Quartier</th>
+                <th scope="col" colspan="4">Accepté JÉSUS</th>
+                <th scope="col" rowspan="2">Boss</th>
+                <th scope="col" colspan="3">Heure</th>
+                <th scope="col" rowspan="2" style="background-color: #d4ad14;">Whatsapp ?</th>
+                <th scope="col" rowspan="2">Sujets de prière</th>
+                <th scope="col" rowspan="2">Témoignages</th>
+            </tr>
+            <tr>
+                <td>Oui</td>
+                <td>Non</td>
+                <td>Déjà</td>
+                <td>Indécis</td>
+                <td>Début</td>
+                <td>Fin</td>
+                <td>Durée</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% include 'pages/personne/table_personne.html' %}
+        </tbody>
+    </table>
+</div>

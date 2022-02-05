@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations | comptes
+{% endblock titre %}
+
+{% block hamburger %}
+<div class="menu-btn">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</div>
+{% endblock hamburger %}
+
+{% block sidebar %}
+{% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="wrapper-head-liste">
+    <div class="head-liste">
+        <h2>Liste des utilisateurs</h2>
+        <h4>Comptes</h4>
+    </div>
+</div>
+<div class="wrapper-liste">
+    <div class="row">
+        <div class="col-md-2">
+            {% include 'partials/user-side-bar-link.html' %}
+        </div>
+        <div class="col-md-10">
+            {% if messages %}
+                {% include 'partials/messages_request.html' %}
+            {% endif %}
+            {% if has_error %}
+                <ul class="form_erros">
+                    {{ errors }}
+                </ul>
+            {% endif %}
+            <div class="liste">
+                <form id="form-suppresion-liste" method="post" class="form-group">
+                    {% csrf_token %}
+                    <div class="form-inline form">
+                        <div class="form-field form-inline">
+                            <label for="suppression">Action : </label>
+                            <select name="objects" id="suppression">
+                                <option value="---------">
+                                    ---------
+                                </option>
+                                <option value="supprimer">supprimer les comptes selectionnés</option>
+                            </select>
+                            <button type="submit" class="btn btn-success btn-sm" id="btn-liste-delete">envoyer</button>
+                            <button type="button" 
+                            class="btn btn-default btn-sm" 
+                            id="btn-search">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="counter-selected">
+                            <b>Résultat : </b> <b id="selection" style="color:red;"></b>
+                        </div>
+                        <div class="wrapper-btn-add">
+                            <a class="btn btn-success btn-sm"
+                                href="{% url 'user_register' %}">
+                                <i class="fas fa-plus"></i>
+                                Ajouter
+                        </a>
+                        </div>
+                    </div>
+                    <div class="search-form">
+                        <input type="text" name="query" id="query" data-url="{% url 'user_recherche' %}">
+                        
+                    </div>
+                    <div class="results">
+                        <table class="table" id="result_list">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="action-checkbox-column">
+                                        <div class="text">
+                                            <span>
+                                                <input type="checkbox" id="action-toggle">
+                                            </span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </th>
+                                    <th scope="col">Utilisateur</th>
+                                    <th scope="col">Télephone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <div class="spinner" id="spinner">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                {% include 'partials/table.html' %}
+                            </tbody>
+                            <div id="empty-result"></div>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-form">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

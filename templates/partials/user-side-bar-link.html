@@ -1,0 +1,20 @@
+<div class="side-liste">
+    <div class="item {% if select_link == 'profile' %}actived{% endif %}">
+        <a href="{% url 'user_detail' %}">
+            <i class="fas fa-user"></i>
+            Profile
+        </a>
+    </div>
+    <div class="item {% if select_link == 'comptes' %}actived{% endif %}">
+        <a href="{% url 'user_comptes' %}">
+            <i class="fas fa-users"></i>
+            Comptes
+        </a>
+    </div>
+    <div class="item">
+        <a href="{% url 'user_logout' %}">
+            <i class="fas fa-sign-out-alt"></i>
+            Se deconnecter
+        </a>
+    </div>
+</div>

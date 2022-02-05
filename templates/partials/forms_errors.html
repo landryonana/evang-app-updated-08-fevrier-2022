@@ -1,0 +1,7 @@
+<ul class="form_erros">
+    {% for error in erros %}
+    <li class="erro">
+        {{ error|safe }}
+    </li>
+    {% endfor %}
+</ul>

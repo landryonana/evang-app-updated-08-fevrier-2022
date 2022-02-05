@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block titre %}
+ASSEMBLE EAUX PAISIBLES | Evangélisations
+{% endblock titre %}
+
+{% block hamburger %}
+<div class="menu-btn">
+    <i class="fas fa-bars"></i>
+    <i class="fas fa-times"></i>
+</div>
+{% endblock hamburger %}
+
+{% block sidebar %}
+{% include 'layouts/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="wrapper-head-liste">
+    <div class="head-liste">
+        <h2>
+            Modification de {{form.instance}}
+        </h2>
+        <h4>Évangelisations</h4>
+    </div>
+</div>
+<div class="wrapper-liste">
+    <div class="row">
+        <div class="col-md-2">
+            {% include 'partials/operation-side-bar-link.html' %}
+        </div>
+        <div class="col-md-10">
+            {% if messages %}
+                {% include 'partials/messages_request.html' %}
+            {% endif %}
+            <div class="liste">
+                {% load widget_tweaks %}
+                <form id="form-suppresion-liste" 
+                        action="{% url 'evangelisation:evangelisation_app_operations_modifier' type_opera instance_model.id %}" 
+                        method="post" 
+                        class="form-group row">
+                    {% csrf_token %}
+                        <div class="col-md-6">
+                            <div class="wrapper-form_set_item">
+                                <h4 class="form-name">formulaire de {{form.instance}}</h4>
+                                <div class="form_set_item_field">
+                                    {% for field in form %}
+                                    <div class="form-group {% if field.errors %}has-error{% endif %}" style="overflow: auto;">
+                                        <div class="form-field">
+                                            <label for="{{ field.id_for_label }}">{{field.label}}</label> 
+                                            {% render_field field class="form-control" %}
+                                            <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                            {% for error in field.errors %}
+                                                <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #e99fa6;">
+                                                    {{ error }}
+                                                </p>
+                                            {% endfor %} 
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="wrapper-btn-formset">
+                                <button type="submit" class="btn btn-success">Modifier</button>
+                                <a href="{% url 'evangelisation:evangelisation_app_operations' type_opera %}" class="btn btn-secondary">Annuler</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
