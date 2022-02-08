@@ -148,7 +148,6 @@ class Person(models.Model):
                 verbose_name="Numéro de téléphone",
                 blank=True,  
                 null=True,
-                default= "---",
                 unique=True,
                 help_text="Le numéro de téléphone doit avoir 09 chiffres",
                 error_messages={'unique':"Le numéro de télephone existe déjà"}
@@ -189,7 +188,7 @@ class Suivi(models.Model):
         ('passager', 'Passager'),
         ('indécis', 'Indécis')
     )
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="suivis",
+    person = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="suivi",
                                     blank=True,  null=True, verbose_name='Personne')
     nbre_appel = models.PositiveIntegerField(default=0, verbose_name="Nombre d'appel")
     nbre_visite_au_culte = models.PositiveIntegerField(default=0,
